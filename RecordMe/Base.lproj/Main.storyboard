@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IR8-cB-k32">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="RecordMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hz5-Yg-EA3">
+                                <rect key="frame" x="85" y="96" width="73" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="SH0-YT-Wq7"/>
+                                </constraints>
+                                <state key="normal" title="Record" image="record-button"/>
+                                <connections>
+                                    <action selector="startRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="4mF-bL-goY"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="VjM-Lu-C8X">
+                                <rect key="frame" x="0.0" y="151" width="414" height="711"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="recordCell" id="v5h-6L-DRn">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v5h-6L-DRn" id="ZWT-eX-IqS">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="kvF-qv-j3Y"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="02A-Sn-6gF"/>
+                                </connections>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KG9-br-jOh">
+                                <rect key="frame" x="256" y="96" width="73" height="47"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="47" id="UVz-5r-fL0"/>
+                                    <constraint firstAttribute="height" relation="lessThanOrEqual" constant="47" id="f5W-t6-bkF"/>
+                                    <constraint firstAttribute="width" constant="73" id="fef-0S-Ab2"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="pause-record"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KG9-br-jOh" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="8yI-ZM-rxQ"/>
+                            <constraint firstItem="hz5-Yg-EA3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="85" id="A8U-x5-eEL"/>
+                            <constraint firstItem="KG9-br-jOh" firstAttribute="leading" secondItem="hz5-Yg-EA3" secondAttribute="trailing" constant="98" id="Ekm-sz-LDj"/>
+                            <constraint firstItem="hz5-Yg-EA3" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="HMp-xP-iuF"/>
+                            <constraint firstItem="hz5-Yg-EA3" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="85" id="JMS-Ui-UMs"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KG9-br-jOh" secondAttribute="trailing" constant="85" id="R7Y-0y-WrY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="KG9-br-jOh" secondAttribute="trailing" constant="85" id="dE6-Ec-A3p"/>
+                            <constraint firstItem="KG9-br-jOh" firstAttribute="leading" secondItem="hz5-Yg-EA3" secondAttribute="trailing" constant="98" id="r2W-0v-ATo"/>
+                            <constraint firstItem="KG9-br-jOh" firstAttribute="leading" secondItem="hz5-Yg-EA3" secondAttribute="trailing" constant="98" id="xaY-s8-def"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="4py-la-lZ3">
+                        <barButtonItem key="rightBarButtonItem" title="edit" id="HH7-LX-u79">
+                            <connections>
+                                <action selector="editBtnClicked:" destination="BYZ-38-t0r" id="uvV-5G-mOd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="editBtn" destination="HH7-LX-u79" id="d0c-JL-TOp"/>
+                        <outlet property="pauseBtn" destination="KG9-br-jOh" id="MGJ-10-a8N"/>
+                        <outlet property="recordBtn" destination="hz5-Yg-EA3" id="0J8-CP-OZV"/>
+                        <outlet property="recordTBview" destination="VjM-Lu-C8X" id="skz-EN-2H2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="713.04347826086962" y="93.75"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="72M-10-9uP">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="IR8-cB-k32" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VFm-vy-Vd5">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZxR-fK-Nin"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="njY-Nd-pWt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-197.10144927536234" y="93.75"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="pause-record" width="64" height="64"/>
+        <image name="record-button" width="64" height="64"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
