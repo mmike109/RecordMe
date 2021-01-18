@@ -54,6 +54,9 @@
                                     <constraint firstAttribute="width" constant="73" id="fef-0S-Ab2"/>
                                 </constraints>
                                 <state key="normal" title="Button" image="pause-record"/>
+                                <connections>
+                                    <action selector="pauseRecording:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kGb-tI-VG6"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
