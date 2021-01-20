@@ -8,6 +8,9 @@
 import UIKit
 import AVFoundation
 
+/**
+ Gets last item in the array
+ */
 extension Array {
     var last: Any{
         return self[self.endIndex - 1]
@@ -15,8 +18,6 @@ extension Array {
 }
 
 class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDelegate, UITableViewDataSource {
-    //next step - add pause button and maybe create prittier buttons instead.
-    
     var recordSession: AVAudioSession!
     var audioRec:AVAudioRecorder!
     var audioPlayer:AVAudioPlayer!
@@ -35,12 +36,17 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
     @IBOutlet var editBtn: UIBarButtonItem!
     
     
-    
+    /**
+     Return number of cells
+     */
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         recordedCellArry.count - 1
     }
     
+    /**
+     Reuse cell if needded
+     */
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "recordCell", for: indexPath)
         
@@ -48,10 +54,16 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         return cell
     }
     
+    /**
+     Make sure the given row can be moved to another location
+     */
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
+    /**
+     Allows reordering of cells
+     */
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         let item = recordedCellArry[sourceIndexPath.row]
         recordedCellArry.remove(at: sourceIndexPath.row)
@@ -59,6 +71,9 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         
     }
     
+    /**
+     Changing button title based on if user is in editing mode.
+     */
     @IBAction func editBtnClicked(_ sender: Any) {
         recordTBview.isEditing = !recordTBview.isEditing
         
@@ -70,6 +85,9 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         }
     }
     
+    /**
+     Delete cells and thier stored voice recordings
+     */
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         _ = FileManager.default
         let docDir = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
@@ -88,7 +106,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
                 try FileManager.default.removeItem(at: filePath)
                         print("\(indexPath.row + 1).m4a deleted")
                 recordTBview.reloadData()
-                //print("\(FileManager.default.value(forKey: "number")) files available")
                         
                 
             }catch{
@@ -96,10 +113,12 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
             }
             
             recordTBview.reloadData()
-            //UserDefaults.standard.setValue(recordedCellArry.count, forKey: "number")
         }
     }
     
+    /**
+     Play voice recrding when user clicks on it.
+     */
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let path = getDir().appendingPathComponent("\(indexPath.row + 1).m4a")
         print(path)
@@ -112,17 +131,17 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         }
     }
     
+    /**
+     Entry point of the program
+     */
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
         //setup session for recording
         recordSession = AVAudioSession.sharedInstance()
      
         
        
         //check if we have the last number in user defaults
-       
         AVAudioSession.sharedInstance().requestRecordPermission { (hasPermission) in
             if hasPermission {
                 print("Gained Access to record")
@@ -154,7 +173,9 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         }
     }
     
-    
+    /**
+     When user press record button thier voice will be recorded and stored in memory.
+     */
     @IBAction func startRecording(_ sender: UIButton) {
         //check if there is an ongoing audio recoding
         if audioRec == nil{
@@ -174,9 +195,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
                 audioRec.delegate = self
                 audioRec.record()
                 
-                //recordBtn.setTitle("Stop recording", for: .normal)
                 recordBtn.setImage(UIImage(named: "stop-record"), for: .normal)
-                //recordTBview.reloadData()
             }catch{
                 displayAlert(title: "Error!", message: "Recording failed")
             }
@@ -186,9 +205,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
             //if we get here meaning we are in the middle of a session
             audioRec.stop()
             audioRec = nil
-            
-            //UserDefaults.standard.setValue(recordCounter, forKey: "number")
-            
             
             let fileManager = FileManager.default
             let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -212,11 +228,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         }
     }
     
+    /**
+     Pause button functionality
+     When clicking on pause button, voice recording will be pasued.
+     Voice recording will be resumed when user clicks on pause button again.
+     */
     @IBAction func pauseRecording(_ sender: Any) {
         
-        do
-        {
-            
+  
             if let currentPauseButtonImage = pauseBtn.image(for: .normal),
                 let pauseButtonAppuyerImage = UIImage(named: "record-button"),
                 currentPauseButtonImage.pngData() == pauseButtonAppuyerImage.pngData()
@@ -237,13 +256,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
                 }
                 
             }
-        }catch
-        {
-            displayAlert(title: "ERROR", message: "Opps an unkown error has occured.")
-        }
     }
     
-    
+    /**
+     Path to the recordings directory
+     */
     func getDir() -> URL
     {
         let path = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
@@ -256,6 +273,10 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, UITableViewDele
         
     }
     
+    /**
+     Alert.
+     Will be displayed when there is an error.
+     */
     func displayAlert(title: String, message: String)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
